@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Math</string>
+    <string name="new_game">شروع بازی جدید</string>
+    <string name="first_tip">سلام! \n این بازی خیلی ساده طراحی شده. شما یک دقیقه وقت دارید و کلی سوال ریاضی برای جواب دادن! \n به سوالات بیشتری پاسخ بدید و امتیاز کسب کنید.</string>
 </resources>

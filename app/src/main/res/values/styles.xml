@@ -8,4 +8,9 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+
+    <style name="PhoenixText">
+        <item name="android:typeface">monospace</item>
+    </style>
+
 </resources>

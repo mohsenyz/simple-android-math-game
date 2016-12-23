@@ -4,23 +4,45 @@ import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.nineoldandroids.animation.ArgbEvaluator;
 import com.nineoldandroids.animation.ValueAnimator;
+import static com.nineoldandroids.view.ViewPropertyAnimator.animate;
 
 public class MainActivity extends AppCompatActivity {
 
 
     RelativeLayout container;
+    LinearLayout control;
+    LinearLayout tips;
+
+
+    Animation hide_out;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        hide_out = AnimationUtils.loadAnimation(this, R.anim.hide_out);
         container = (RelativeLayout) findViewById(R.id.container);
+        control = (LinearLayout) findViewById(R.id.controll);
+        tips = (LinearLayout) findViewById(R.id.tips);
         circle_animator.run();
+
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                tips.startAnimation(hide_out);
+                animate(control).setDuration(1000).rotationYBy(360).y(-100).alpha(0);
+            }
+        }, 3000);
     }
 
     ValueAnimator colorAnimation;
