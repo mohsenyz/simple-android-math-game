@@ -1,5 +1,6 @@
 package com.phoenix.math;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ColorDrawable;
@@ -58,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onAnimationEnd(Animator animator) {
+                        startActivity(new Intent(MainActivity.this, GameStart.class));
                         finish();
                     }
 
