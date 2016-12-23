@@ -7,11 +7,14 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.ArgbEvaluator;
 import com.nineoldandroids.animation.ValueAnimator;
 import static com.nineoldandroids.view.ViewPropertyAnimator.animate;
@@ -24,25 +27,64 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout tips;
 
 
-    Animation hide_out;
+
+    Button start;
+
+    Animation hide_out, show_in;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         hide_out = AnimationUtils.loadAnimation(this, R.anim.hide_out);
+        show_in = AnimationUtils.loadAnimation(this, R.anim.show_in);
         container = (RelativeLayout) findViewById(R.id.container);
         control = (LinearLayout) findViewById(R.id.controll);
+        start = (Button) findViewById(R.id.start);
         tips = (LinearLayout) findViewById(R.id.tips);
+        tips.setVisibility(View.INVISIBLE);
         circle_animator.run();
+
+
+
+        start.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tips.startAnimation(hide_out);
+                animate(control).setDuration(1000).rotationYBy(360).y(-100).alpha(0).setListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animator) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animator) {
+                        finish();
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animator) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animator) {
+
+                    }
+                });
+            }
+        });
+
+
+
 
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                tips.startAnimation(hide_out);
-                animate(control).setDuration(1000).rotationYBy(360).y(-100).alpha(0);
+                tips.setVisibility(View.VISIBLE);
+                tips.startAnimation(show_in);
             }
-        }, 3000);
+        }, 600);
     }
 
     ValueAnimator colorAnimation;

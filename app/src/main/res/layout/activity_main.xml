@@ -24,6 +24,7 @@
             android:textSize="14dp"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
+            android:id="@+id/start"
             android:textAppearance="@style/PhoenixText"
             android:background="@drawable/toolbar"/>
 
