@@ -36,21 +36,24 @@ public class ProgressBar extends View {
         p.setColor(def_color);
         p.setShadowLayer(5, 0, 0, Color.BLACK);
         setLayerType(LAYER_TYPE_SOFTWARE, p);
-        double pres = 100 * precent;
-        double width = ((double) getWidth()) / pres;
-        Log.d("pres","" + pres);
+        double width = ((double) getWidth() * precent) / 100;
         canvas.drawRect(0, 0, (int)width, getHeight() - 5, p);
         super.onDraw(canvas);
     }
 
     ValueAnimator va;
+    boolean preventFinish = false;
     public void goTo(final int pre, int speed){
+        def_color = colors[MathUtils.rand(0, 4)];
         if (va != null && va.isRunning()){
+            preventFinish = true;
             va.cancel();
+            va = null;
         }
         if (pre ==0 && speed == 0){
             precent = 0;
             invalidate();
+            return;
         }
         va = ValueAnimator.ofInt(precent, pre);
         va.setDuration(speed);
@@ -69,9 +72,10 @@ public class ProgressBar extends View {
 
             @Override
             public void onAnimationEnd(Animator animator) {
-                def_color = colors[MathUtils.rand(0, 4)];
-                if (onFinishListener != null)
+                if (onFinishListener != null && !preventFinish) {
                     onFinishListener.onFinish();
+                }
+                preventFinish = false;
             }
 
             @Override

@@ -40,7 +40,7 @@ public class GameStart extends AppCompatActivity {
     LinearLayout score_container;
     TextView score_text, question, fake1, fake2, fake3, fake4;
     ProgressBar progressBar;
-    private int TIME = 4500;
+    private int TIME = 5000;
     private int IN_QUESTION = 0;
     private int SCORE = 0;
     Question current;
@@ -152,6 +152,7 @@ public class GameStart extends AppCompatActivity {
     ValueAnimator btnColorAnimation;
     private void changeScore(final int color){
         progressBar.goTo(0, 0);
+        progressBar.goTo(100, TIME);
         btnColorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), color, color);
         btnColorAnimation.setDuration(800);
         btnColorAnimation.setRepeatMode(ValueAnimator.REVERSE);
